@@ -96,6 +96,6 @@ def get_data_loader(
     shuffle: bool = True
 ):
     """Get data loader."""
-    train_loader = DataLoader(dataset=train_data, batch_size=args.batch_size, shuffle=True)
-    valid_loader = DataLoader(dataset=valid_data, batch_size=args.batch_size, shuffle=True)
+    train_loader = DataLoader(dataset=train_data, batch_size=batch_size, shuffle=True)
+    valid_loader = DataLoader(dataset=valid_data, batch_size=batch_size, shuffle=True)
     return train_loader, valid_loader
