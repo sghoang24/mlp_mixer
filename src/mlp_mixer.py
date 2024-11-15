@@ -88,10 +88,12 @@ class MLPMixer(nn.Module):
 def mixer(model: str, num_classes: int = 1000, **kwargs):
     """Mixer model."""
     model_info = MODEL_INFO.get(model, None)
+    image_size = kwargs.get('image_size', 224)
+
     if not model_info:
         return MLPMixer(num_classes=num_classes, **kwargs)
     return MLPMixer(
         num_classes=num_classes,
+        image_size=image_size,
         **model_info,
-        **kwargs
     )
