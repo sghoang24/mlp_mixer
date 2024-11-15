@@ -49,7 +49,7 @@ class MixerBlock(nn.Module):
 
 class MLPMixer(nn.Module):
     """MLP Mixer."""
-    def __init_(
+    def __init__(
         self,
         num_classes,
         num_blocks,
