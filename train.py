@@ -99,6 +99,10 @@ def main(args):
     """Main."""
     model = mixer(**vars(args)).to(args.device)
     train_transforms, val_transforms = get_data_transform(image_size=args.image_size)
+
+    # Prepare dataset
+    train_data = CustomDataset(targ_dir=args.train_folder, transforms=train_transforms)
+    valid_data = CustomDataset(targ_dir=args.valid_folder, transforms=val_transforms)
     train_loader, val_loader = get_data_loader(
         train_data=train_data,
         valid_data=valid_data,
