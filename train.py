@@ -97,7 +97,7 @@ def train_model(args, model, **kwargs):
 
 def main(args):
     """Main."""
-    model = mixer(args.model, args.num_classes, **vars(args)).to(args.device)
+    model = mixer(**vars(args)).to(args.device)
     train_transforms, val_transforms = get_data_transform()
     train_loader, val_loader = get_data_loader(
         train_data=train_data,
