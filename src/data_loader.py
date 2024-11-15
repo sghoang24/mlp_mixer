@@ -1,6 +1,7 @@
 """Data loader."""
 
 import pathlib
+from typing import Tuple
 from PIL import Image
 
 import torch
