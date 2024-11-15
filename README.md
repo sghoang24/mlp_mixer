@@ -1,2 +1,1 @@
-# mlp_mixer
-MLP Mixer
+# MLP Mixer
