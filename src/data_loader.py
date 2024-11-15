@@ -1,5 +1,6 @@
 """Data loader."""
 
+import os
 import pathlib
 from typing import Tuple, Dict, List
 from PIL import Image
@@ -7,6 +8,7 @@ from PIL import Image
 import torch
 from torch.utils.data import DataLoader, Dataset
 from torchvision import datasets, transforms
+
 
 def find_classes(directory: str) -> Tuple[List[str], Dict[str, int]]:
     """Finds the class folder names in a target directory.
