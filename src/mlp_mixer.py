@@ -64,7 +64,7 @@ class MLPMixer(nn.Module):
         num_tokens = (image_size // patch_size)**2
         self.num_channels = num_channels
 
-        self.patch_emb = nn.Conv2D(num_channels, hidden_dim, kernel_size=patch_size, stride=patch_size, bias=False)
+        self.patch_emb = nn.Conv2d(num_channels, hidden_dim, kernel_size=patch_size, stride=patch_size, bias=False)
         self.mlp = nn.Sequential(
             *[
                 MixerBlock(num_tokens, hidden_dim, tokens_mlp_dim, channels_mlp_dim)
