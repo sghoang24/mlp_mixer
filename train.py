@@ -98,7 +98,7 @@ def train_model(args, model, **kwargs):
 def main(args):
     """Main."""
     model = mixer(**vars(args)).to(args.device)
-    train_transforms, val_transforms = get_data_transform()
+    train_transforms, val_transforms = get_data_transform(image_size=args.image_size)
     train_loader, val_loader = get_data_loader(
         train_data=train_data,
         valid_data=valid_data,
