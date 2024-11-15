@@ -58,6 +58,7 @@ class MLPMixer(nn.Module):
         tokens_mlp_dim,
         channels_mlp_dim,
         image_size: int = 224,
+        num_channels: int = 3,
     ):
         super(MLPMixer, self).__init__()
         num_tokens = (image_size // patch_size)**2
