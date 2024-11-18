@@ -43,6 +43,7 @@ def save_model(args, model):
 
 def save_checkpoint(model, optimizer, epoch, loss, args):
     """Save checkpoint."""
+    os.makedirs(args.model_folder, exist_ok=True)
     checkpoint_path = os.path.join(args.model_folder, f'mixer_{args.model}' + '_' + str(epoch) + ".pt")
     checkpoint = {
         'model_state_dict': model.state_dict(),
