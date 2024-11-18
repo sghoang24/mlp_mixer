@@ -49,12 +49,12 @@ class CustomDataset(Dataset):
 
     def load_image(self, index: int) -> Image.Image:
         "Opens an image via a path and returns it."
-        image_path = self.paths[index]
+        image_path = self.file_list[index]
         return Image.open(image_path) 
 
     def __getitem__(self, index: int):
         img = self.load_image(index)
-        class_name  = self.paths[index].parent.name # expects path in data_folder/class_name/image.jpeg
+        class_name  = self.file_list[index].parent.name # expects path in data_folder/class_name/image.jpeg
         class_idx = self.class_to_idx[class_name]
 
         if self.transforms:
