@@ -12,6 +12,13 @@ from utils.utils import *
 
 def train_model(args, model, **kwargs):
     """Train model."""
+    optimizer = kwargs.get('optimizer', None)
+    criterion = kwargs.get('criterion', None)
+    start_epoch = kwargs.get('start_epoch', 0)
+    epochs = kwargs.get('epochs', 10)
+    save_interval = kwargs.get('save_interval', 0)
+    train_loader = kwargs.get('train_loader', None)
+    val_loader = kwargs.get('val_loader', None)
     print("Start training...")
     if not args.logger:
         if not args.id_name:
@@ -94,6 +101,7 @@ def train_model(args, model, **kwargs):
         
     save_model(args, model)
     print('Save model successfully...')
+
 
 def main(args):
     """Main."""
