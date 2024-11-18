@@ -12,6 +12,7 @@ from utils.utils import *
 
 def train_model(args, model, **kwargs):
     """Train model."""
+    print("Start training...")
     optimizer = kwargs.get('optimizer', None)
     criterion = kwargs.get('criterion', None)
     start_epoch = kwargs.get('start_epoch', 0)
@@ -19,7 +20,9 @@ def train_model(args, model, **kwargs):
     save_interval = kwargs.get('save_interval', 0)
     train_loader = kwargs.get('train_loader', None)
     val_loader = kwargs.get('val_loader', None)
-    print("Start training...")
+
+    train_losses, val_losses = [], []
+    train_accuracy, val_accuracy = [], []
     if not args.logger:
         if not args.id_name:
             wandb.init(id=args.id_name, project='MLP-Mixer', resume="must")
@@ -37,6 +40,8 @@ def train_model(args, model, **kwargs):
             data = data.to(args.device)
             label = label.squeeze().type(torch.LongTensor).to(args.device)
             output = model(data)
+            # print(model)
+            # print(output.shape, label)
 
             loss = criterion(output, label)
             optimizer.zero_grad()
@@ -101,6 +106,7 @@ def train_model(args, model, **kwargs):
         
     save_model(args, model)
     print('Save model successfully...')
+    return train_losses, val_losses, train_accuracy, val_accuracy
 
 
 def main(args):
@@ -119,12 +125,6 @@ def main(args):
     
     optimizer = torch.optim.Adam(params=model.parameters(), lr=args.lr)
     criterion = nn.CrossEntropyLoss()
-
-    running_loss_train, running_loss_val = 0, 0
-    running_accuracy_train, running_accuracy_val = 0, 0
-
-    train_losses, val_losses = [], []
-    train_accuracy, val_accuracy = [], []
 
     model, optimizer, start_epoch = load_model(
         model=model,

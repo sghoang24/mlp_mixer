@@ -83,6 +83,7 @@ class MLPMixer(nn.Module):
         x = self.ln(x)                      # (batch_size, hidden_dim)
         x = x.mean(dim=1)                   # (batch_size, hidden_dim)
         x = self.fc(x)                      # (batch_size, num_classes)
+        return x
 
 
 def mixer(model: str, num_classes: int = 1000, **kwargs):
