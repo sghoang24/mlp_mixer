@@ -40,8 +40,6 @@ def train_model(args, model, **kwargs):
             data = data.to(args.device)
             label = label.squeeze().type(torch.LongTensor).to(args.device)
             output = model(data)
-            # print(model)
-            # print(output.shape, label)
 
             loss = criterion(output, label)
             optimizer.zero_grad()
