@@ -74,7 +74,7 @@ class MLPMixer(nn.Module):
         self.ln = nn.LayerNorm(hidden_dim)
         self.fc = nn.Linear(hidden_dim, num_classes)
 
-    def forward(self):
+    def forward(self, x):
         """Forward."""
         # x shape = (3, image_size, image_size) 
         x = self.patch_emb(x)               # (batch_size, hidden_dim, patch_size, patch_size)
