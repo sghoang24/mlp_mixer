@@ -23,8 +23,8 @@ def train_model(args, model, **kwargs):
 
     train_losses, val_losses = [], []
     train_accuracy, val_accuracy = [], []
-    if not args.logger:
-        if not args.id_name:
+    if args.logger:
+        if args.id_name:
             wandb.init(id=args.id_name, project='MLP-Mixer', resume="must")
         else:
             wandb.init(project='MLP-Mixer', name=args.model)
@@ -58,14 +58,7 @@ def train_model(args, model, **kwargs):
         train_accuracy.append(epoch_accuracy.item())
         train_losses.append(epoch_loss.item())
 
-        # Log
-        print(
-            "Epoch : {}, train accuracy : {}, train loss : {}".format(
-                epoch + 1, epoch_accuracy, epoch_loss
-            )
-        )
-
-        if not args.logger:
+        if args.logger:
             wandb.log({'Train Accuracy': epoch_accuracy.item(), 'Train Loss': epoch_loss.item(), 'Epoch': epoch + 1})
 
         # Validation
@@ -88,18 +81,18 @@ def train_model(args, model, **kwargs):
 
         # Log
         print(
-            "Epoch : {}, val_accuracy : {}, val_loss : {}".format(
-                epoch + 1, epoch_val_accuracy, epoch_val_loss
+            "Epoch : {} -> train accuracy : {}, train loss : {} | val_accuracy : {}, val_loss : {}".format(
+                epoch + 1, epoch_accuracy, epoch_loss, epoch_val_accuracy, epoch_val_loss
             )
         )
-        if not args.logger:
+        if args.logger:
             wandb.log({'Val Accuracy': epoch_accuracy.item(), 'Val Loss': epoch_loss.item(), 'Epoch': epoch + 1})
 
-        if save_interval is not None:
+        if save_interval:
             if (epoch + 1) % save_interval == 0:
                 save_checkpoint(model, optimizer, epoch+1, loss, args)
 
-    if args.logger is not None:
+    if args.logger:
         wandb.finish()
         
     save_model(args, model)
